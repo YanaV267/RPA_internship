@@ -6,7 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,8 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
-import java.util.Set;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -25,19 +25,20 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "weekends")
-public class Weekend {
+@Table(name = "courses")
+public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "weekend_id")
-    private Long weekendId;
+    @Column(name = "course_id")
+    private Long courseId;
 
-    @Column(name = "calendar_date")
-    private Date calendarDate;
+    @Column(name = "currency_type")
+    private String currencyType;
 
-    @Column(name = "is_day_off")
-    private boolean isDayOff;
+    @JoinColumn(name = "weekend_id")
+    @ManyToOne
+    private Weekend weekend;
 
-    @OneToMany(mappedBy = "weekend")
-    private Set<Course> courses;
+    @Column(name = "course_value")
+    private BigDecimal value;
 }
