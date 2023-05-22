@@ -1,19 +1,24 @@
 package by.fin.processing.service.impl;
 
+import by.fin.module.entity.Rate;
+import by.fin.module.entity.Weekend;
 import by.fin.module.repository.RateRepository;
+import by.fin.processing.dto.BankRateDto;
 import by.fin.processing.dto.RateDto;
 import by.fin.processing.dto.RateWrapperDto;
-import by.fin.processing.dto.ServerRateDto;
+import by.fin.processing.dto.WeekendDto;
 import by.fin.processing.exception.BadRequestException;
 import by.fin.processing.exception.NoDataFoundException;
 import by.fin.processing.mapper.impl.RateMapper;
 import by.fin.processing.service.RateService;
+import by.fin.processing.service.WeekendsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static by.fin.processing.exception.ExceptionResponseMessage.DATES_INTERVAL;
 import static by.fin.processing.exception.ExceptionResponseMessage.DATES_MIX_UP;
@@ -25,6 +30,7 @@ import static by.fin.processing.exception.ExceptionResponseMessage.EXCHANGE_RATE
 public class RateServiceImpl implements RateService {
     private final RateRepository repository;
     private final RateMapper mapper;
+    private final WeekendsService weekendsService;
 
     @Override
     public void checkDates(RateWrapperDto wrapperDto) {
@@ -38,9 +44,24 @@ public class RateServiceImpl implements RateService {
     }
 
     @Override
-    public List<RateDto> add(RateWrapperDto wrapperDto, List<ServerRateDto> exchangeRates) {
-
-        return List.of();
+    public List<RateDto> add(RateWrapperDto wrapperDto, List<BankRateDto> exchangeRates) {
+        String currencyType = wrapperDto.getCurrencyType();
+        return exchangeRates.stream()
+                .filter(r -> {
+                    Weekend weekend = weekendsService.findWeekendEntityByDate(r.getDate());
+                    Optional<Rate> foundRate = repository.findByWeekendAndCurrencyType(weekend, currencyType);
+                    return foundRate.isEmpty();
+                }).map(r -> {
+                    WeekendDto weekend = weekendsService.findWeekendByDate(r.getDate());
+                    RateDto rateDto = RateDto.builder().currencyType(currencyType)
+                            .value(r.getRateValue())
+                            .weekend(weekend)
+                            .build();
+                    Rate rate = mapper.mapToEntity(rateDto);
+                    repository.save(rate);
+                    rateDto.setExchangeRateId(rate.getExchangeRateId());
+                    return rateDto;
+                }).toList();
     }
 
     @Override
