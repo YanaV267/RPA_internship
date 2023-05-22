@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
@@ -24,6 +25,10 @@ public interface RateController {
     @GetMapping("/")
     @ResponseStatus(OK)
     List<RateDto> findAll();
+
+    @GetMapping("/currency")
+    @ResponseStatus(OK)
+    List<RateDto> findByCurrency(@RequestParam String currencyType);
 
     List<BankRateDto> retrieveDataFromBankServer(RateWrapperDto wrapper);
 }

@@ -12,4 +12,6 @@ public interface RateService {
     List<RateDto> add(RateWrapperDto wrapperDto, List<BankRateDto> exchangeRates);
 
     List<RateDto> findAll();
+
+    List<RateDto> findByCurrency(String currencyType);
 }

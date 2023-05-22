@@ -74,4 +74,15 @@ public class RateServiceImpl implements RateService {
         }
         return exchangeRates;
     }
+
+    @Override
+    public List<RateDto> findByCurrency(String currencyType) {
+        List<RateDto> exchangeRates = repository.findByCurrencyType(currencyType).stream()
+                .map(mapper::mapToDto)
+                .toList();
+        if (exchangeRates.isEmpty()) {
+            throw new NoDataFoundException(EXCHANGE_RATES, RateDto.class);
+        }
+        return exchangeRates;
+    }
 }

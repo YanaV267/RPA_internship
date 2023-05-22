@@ -1,8 +1,8 @@
 package by.fin.web.controller.impl;
 
+import by.fin.processing.dto.BankRateDto;
 import by.fin.processing.dto.RateDto;
 import by.fin.processing.dto.RateWrapperDto;
-import by.fin.processing.dto.BankRateDto;
 import by.fin.processing.exception.BadRequestException;
 import by.fin.processing.service.RateService;
 import by.fin.web.controller.RateController;
@@ -22,8 +22,10 @@ import static by.fin.processing.exception.ExceptionResponseMessage.SERVER_NOT_RE
 @RequiredArgsConstructor
 public class RateControllerImpl implements RateController {
     private static final String SERVER_EXCHANGE_RATES_URL =
-            "https://api.nbrb.by/exrates/rates/{cur_abbreviation}?periodicity=1&parammode=2&ondate={date}";
+            "https://api.nbrb.by/exrates/rates/{cur_abbreviation}?periodicity=1&parammode=2";
+    private static final String SERVER_EXCHANGE_RATES_URL_BY_DATE = SERVER_EXCHANGE_RATES_URL + "&ondate={date}";
     private final RateService service;
+    private final RestTemplate restTemplate;
 
     @Override
     public List<RateDto> create(RateWrapperDto wrapperDto) {
@@ -38,14 +40,19 @@ public class RateControllerImpl implements RateController {
     }
 
     @Override
+    public List<RateDto> findByCurrency(String currencyType) {
+        restTemplate.getForObject(SERVER_EXCHANGE_RATES_URL, BankRateDto.class, currencyType);
+        return service.findByCurrency(currencyType);
+    }
+
+    @Override
     public List<BankRateDto> retrieveDataFromBankServer(RateWrapperDto wrapper) {
-        RestTemplate restTemplate = new RestTemplate();
         String currencyType = wrapper.getCurrencyType();
         List<BankRateDto> exchangeRates = new LinkedList<>();
         for (LocalDate date = wrapper.getStartDate(); date.isBefore(wrapper.getEndDate().plusDays(1));
              date = date.plusDays(1)) {
             BankRateDto serverRate =
-                    restTemplate.getForObject(SERVER_EXCHANGE_RATES_URL, BankRateDto.class, currencyType, date);
+                    restTemplate.getForObject(SERVER_EXCHANGE_RATES_URL_BY_DATE, BankRateDto.class, currencyType, date);
             if (serverRate == null) {
                 throw new BadRequestException(SERVER_NOT_RESPONDED, BankRateDto.class);
             }
