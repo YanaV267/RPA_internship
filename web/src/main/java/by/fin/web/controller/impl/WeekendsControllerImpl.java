@@ -1,7 +1,7 @@
 package by.fin.web.controller.impl;
 
-import by.fin.module.entity.Weekend;
-import by.fin.service.WeekendService;
+import by.fin.processing.dto.WeekendDto;
+import by.fin.processing.service.WeekendsService;
 import by.fin.web.controller.WeekendsController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,11 +13,11 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class WeekendsControllerImpl implements WeekendsController {
-    private final WeekendService weekendService;
+    private final WeekendsService weekendsService;
 
     @Override
-    public ResponseEntity<List<Weekend>> findAll() {
-        List<Weekend> foundData = weekendService.findAll();
+    public ResponseEntity<List<WeekendDto>> findAll() {
+        List<WeekendDto> foundData = weekendsService.findAll();
         return new ResponseEntity<>(foundData, HttpStatus.OK);
     }
 }
