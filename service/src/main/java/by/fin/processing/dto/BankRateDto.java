@@ -19,7 +19,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ServerRateDto implements Serializable {
+public class BankRateDto implements Serializable {
     @JsonProperty("Cur_ID")
     private Long serverRateId;
 

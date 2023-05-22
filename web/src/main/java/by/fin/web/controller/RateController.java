@@ -2,7 +2,7 @@ package by.fin.web.controller;
 
 import by.fin.processing.dto.RateDto;
 import by.fin.processing.dto.RateWrapperDto;
-import by.fin.processing.dto.ServerRateDto;
+import by.fin.processing.dto.BankRateDto;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,5 +25,5 @@ public interface RateController {
     @ResponseStatus(OK)
     List<RateDto> findAll();
 
-    List<ServerRateDto> retrieveDataFromBankServer(RateWrapperDto wrapper);
+    List<BankRateDto> retrieveDataFromBankServer(RateWrapperDto wrapper);
 }
