@@ -39,5 +39,5 @@ public class Weekend {
     private boolean isDayOff;
 
     @OneToMany(mappedBy = "weekend")
-    private Set<Course> courses;
+    private Set<ExchangeRate> cours;
 }

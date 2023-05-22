@@ -1,7 +1,7 @@
 package by.fin.processing.dto;
 
 
-import by.fin.module.entity.Course;
+import by.fin.module.entity.ExchangeRate;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -30,5 +30,5 @@ public class WeekendDto {
     private boolean isDayOff;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Set<Course> courses;
+    private Set<ExchangeRate> cours;
 }

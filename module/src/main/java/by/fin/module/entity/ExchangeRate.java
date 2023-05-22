@@ -25,12 +25,12 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "courses")
-public class Course {
+@Table(name = "exchange_rates")
+public class ExchangeRate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "course_id")
-    private Long courseId;
+    @Column(name = "exchange_rate_id")
+    private Long exchangeRateId;
 
     @Column(name = "currency_type")
     private String currencyType;
@@ -39,6 +39,6 @@ public class Course {
     @ManyToOne
     private Weekend weekend;
 
-    @Column(name = "course_value")
+    @Column(name = "exchange_rate_value")
     private BigDecimal value;
 }

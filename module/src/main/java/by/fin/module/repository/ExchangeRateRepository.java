@@ -1,10 +1,10 @@
 package by.fin.module.repository;
 
 
-import by.fin.module.entity.Course;
+import by.fin.module.entity.ExchangeRate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CourseRepository extends JpaRepository<Course, Long> {
+public interface ExchangeRateRepository extends JpaRepository<ExchangeRate, Long> {
 }

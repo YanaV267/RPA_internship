@@ -21,9 +21,8 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseDto {
-    @NotNull
-    private Long courseId;
+public class ExchangeRateDto {
+    private Long exchangeRateId;
 
     @NotNull
     @Pattern(regexp = "[A-Z]{3}")

@@ -1,6 +1,6 @@
 package by.fin.processing.exception;
 
-import static by.fin.processing.util.ParameterName.COURSES;
+import static by.fin.processing.util.ParameterName.EXCHANGE_RATES;
 import static by.fin.processing.util.ParameterName.WEEKENDS;
 
 public class NoDataFoundException extends RuntimeException {
@@ -11,7 +11,7 @@ public class NoDataFoundException extends RuntimeException {
 
     public NoDataFoundException(String parameters, Class<?> resourceClass) {
         super();
-        if (WEEKENDS.equals(parameters) || COURSES.equals(parameters)) {
+        if (WEEKENDS.equals(parameters) || EXCHANGE_RATES.equals(parameters)) {
             this.parameters = parameters + DELIMITER + ALL_DATA_VALUE;
         } else {
             this.parameters = parameters.replaceAll(DELIMITER.trim(), DELIMITER);
