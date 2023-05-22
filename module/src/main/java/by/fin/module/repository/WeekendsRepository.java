@@ -1,4 +1,4 @@
-package by.fin.module;
+package by.fin.module.repository;
 
 
 import by.fin.module.entity.Weekend;
