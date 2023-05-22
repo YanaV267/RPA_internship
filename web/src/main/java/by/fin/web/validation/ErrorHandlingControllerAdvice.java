@@ -1,8 +1,9 @@
 package by.fin.web.validation;
 
-import by.fin.processing.dto.ServerRateDto;
+import by.fin.processing.dto.BankRateDto;
 import by.fin.processing.exception.BadRequestException;
 import by.fin.processing.exception.NoDataFoundException;
+import by.fin.processing.exception.RequiredEntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -62,6 +63,12 @@ public class ErrorHandlingControllerAdvice {
                 new Violation(e.getParameterName(), e.getMessage())));
     }
 
+    @ExceptionHandler(RequiredEntityNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorMessage handleEntityNotFoundException(RequiredEntityNotFoundException exception) {
+        return new ErrorMessage("Entity not found" + exception.getResourceClass() + ": " + exception.getParameters());
+    }
+
     @ExceptionHandler(NoDataFoundException.class)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ValidationErrorResponse handleNoDataFoundException(NoDataFoundException e) {
@@ -73,6 +80,6 @@ public class ErrorHandlingControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ValidationErrorResponse handleNoDataFoundException(HttpStatusCodeException e) {
         return new ValidationErrorResponse(List.of(
-                new Violation(ServerRateDto.class.getName(), INVALID_CURRENCY_TYPE)));
+                new Violation(BankRateDto.class.getName(), INVALID_CURRENCY_TYPE)));
     }
 }
