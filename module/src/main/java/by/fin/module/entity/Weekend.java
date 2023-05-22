@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -33,11 +34,11 @@ public class Weekend {
     private Long weekendId;
 
     @Column(name = "calendar_date")
-    private Date calendarDate;
+    private LocalDate calendarDate;
 
     @Column(name = "is_day_off")
     private boolean isDayOff;
 
     @OneToMany(mappedBy = "weekend")
-    private Set<ExchangeRate> cours;
+    private Set<Rate> rates;
 }

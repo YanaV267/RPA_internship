@@ -1,4 +1,4 @@
-package by.fin.web.validation;
+package com.innowise.sharing.validation;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

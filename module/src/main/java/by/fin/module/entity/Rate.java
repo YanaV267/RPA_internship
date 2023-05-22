@@ -26,7 +26,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "exchange_rates")
-public class ExchangeRate {
+public class Rate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "exchange_rate_id")

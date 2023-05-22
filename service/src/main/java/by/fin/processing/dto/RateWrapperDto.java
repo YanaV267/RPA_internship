@@ -1,9 +1,8 @@
 package by.fin.processing.dto;
 
 
-import by.fin.module.entity.Rate;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,8 +11,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -21,15 +18,14 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class WeekendDto {
+public class RateWrapperDto {
     @NotNull
-    private Long weekendId;
+    @Pattern(regexp = "[A-Z]{3}")
+    private String currencyType;
 
     @NotNull
-    private LocalDate calendarDate;
+    private LocalDate startDate;
 
-    private boolean isDayOff;
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Set<Rate> rates;
+    @NotNull
+    private LocalDate endDate;
 }

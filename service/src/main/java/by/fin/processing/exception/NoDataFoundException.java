@@ -1,7 +1,7 @@
 package by.fin.processing.exception;
 
-import static by.fin.processing.util.ParameterName.EXCHANGE_RATES;
-import static by.fin.processing.util.ParameterName.WEEKENDS;
+import static by.fin.processing.exception.ExceptionResponseMessage.EXCHANGE_RATES;
+import static by.fin.processing.exception.ExceptionResponseMessage.WEEKENDS;
 
 public class NoDataFoundException extends RuntimeException {
     private static final String DELIMITER = " = ";

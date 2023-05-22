@@ -1,7 +1,6 @@
 package by.fin.processing.dto;
 
 
-import by.fin.module.entity.Weekend;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
@@ -21,7 +20,7 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExchangeRateDto {
+public class RateDto {
     private Long exchangeRateId;
 
     @NotNull
@@ -29,7 +28,7 @@ public class ExchangeRateDto {
     private String currencyType;
 
     @NotNull
-    private Weekend weekend;
+    private WeekendDto weekend;
 
     @NotNull
     @DecimalMin(value = "0.0001")
