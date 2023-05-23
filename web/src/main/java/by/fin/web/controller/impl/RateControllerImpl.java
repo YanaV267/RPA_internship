@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
@@ -43,6 +44,12 @@ public class RateControllerImpl implements RateController {
     public List<RateDto> findByCurrency(String currencyType) {
         restTemplate.getForObject(SERVER_EXCHANGE_RATES_URL, BankRateDto.class, currencyType);
         return service.findByCurrency(currencyType);
+    }
+
+    @Override
+    public BigDecimal findAverageInMonth(String currencyType, int monthNumber) {
+        restTemplate.getForObject(SERVER_EXCHANGE_RATES_URL, BankRateDto.class, currencyType);
+        return service.findAverageInMonth(currencyType, monthNumber);
     }
 
     @Override

@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,7 @@ import java.util.Optional;
 import static by.fin.processing.exception.ExceptionResponseMessage.DATES_INTERVAL;
 import static by.fin.processing.exception.ExceptionResponseMessage.DATES_MIX_UP;
 import static by.fin.processing.exception.ExceptionResponseMessage.EXCHANGE_RATES;
+import static by.fin.processing.exception.ExceptionResponseMessage.RATES_NOT_FOUND_IN_MONTH;
 
 @Service
 @Transactional
@@ -84,5 +86,14 @@ public class RateServiceImpl implements RateService {
             throw new NoDataFoundException(EXCHANGE_RATES, RateDto.class);
         }
         return exchangeRates;
+    }
+
+    @Override
+    public BigDecimal findAverageInMonth(String currencyType, int monthNumber) {
+        Optional<BigDecimal> resultAverage = repository.findByCurrencyTypeAndMonthNumber(currencyType, monthNumber);
+        if (resultAverage.isEmpty()) {
+            throw new BadRequestException(RATES_NOT_FOUND_IN_MONTH, RateDto.class);
+        }
+        return resultAverage.get();
     }
 }

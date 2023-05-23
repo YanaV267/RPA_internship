@@ -1,9 +1,11 @@
 package by.fin.web.controller;
 
+import by.fin.processing.dto.BankRateDto;
 import by.fin.processing.dto.RateDto;
 import by.fin.processing.dto.RateWrapperDto;
-import by.fin.processing.dto.BankRateDto;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -29,6 +32,10 @@ public interface RateController {
     @GetMapping("/currency")
     @ResponseStatus(OK)
     List<RateDto> findByCurrency(@RequestParam String currencyType);
+
+    @GetMapping("/average")
+    @ResponseStatus(OK)BigDecimal findAverageInMonth(@RequestParam String currencyType,
+                                  @RequestParam @Min(1) @Max(12) int monthNumber);
 
     List<BankRateDto> retrieveDataFromBankServer(RateWrapperDto wrapper);
 }

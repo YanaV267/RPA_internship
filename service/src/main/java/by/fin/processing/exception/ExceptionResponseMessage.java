@@ -8,6 +8,7 @@ public final class ExceptionResponseMessage {
     public static final String DATES_MIX_UP = "Дата начала не может быть позже даты конца интервала";
     public static final String SERVER_NOT_RESPONDED = "Невозможно получить данные курсов валют с сервера";
     public static final String INVALID_CURRENCY_TYPE = "Проверьте правильность введённой валюты";
+    public static final String RATES_NOT_FOUND_IN_MONTH = "В заданный месяц курсов валют не найдено";
 
     private ExceptionResponseMessage() {
 
