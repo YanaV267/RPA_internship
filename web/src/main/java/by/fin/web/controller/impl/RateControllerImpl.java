@@ -42,20 +42,23 @@ public class RateControllerImpl implements RateController {
 
     @Override
     public List<RateDto> findByCurrency(String currencyType) {
-        restTemplate.getForObject(SERVER_EXCHANGE_RATES_URL, BankRateDto.class, currencyType);
+        checkCurrencyType(currencyType);
         return service.findByCurrency(currencyType);
     }
 
     @Override
     public BigDecimal findAverageInMonth(String currencyType, int monthNumber) {
-        restTemplate.getForObject(SERVER_EXCHANGE_RATES_URL, BankRateDto.class, currencyType);
+        checkCurrencyType(currencyType);
         return service.findAverageInMonth(currencyType, monthNumber);
     }
 
-    @Override
-    public List<BankRateDto> retrieveDataFromBankServer(RateWrapperDto wrapper) {
+    private void checkCurrencyType(String currencyType) {
+        restTemplate.getForObject(SERVER_EXCHANGE_RATES_URL, BankRateDto.class, currencyType);
+    }
+
+    private List<BankRateDto> retrieveDataFromBankServer(RateWrapperDto wrapper) {
         String currencyType = wrapper.getCurrencyType();
-        List<BankRateDto> exchangeRates = new LinkedList<>();
+        List<BankRateDto> rates = new LinkedList<>();
         for (LocalDate date = wrapper.getStartDate(); date.isBefore(wrapper.getEndDate().plusDays(1));
              date = date.plusDays(1)) {
             BankRateDto serverRate =
@@ -63,8 +66,8 @@ public class RateControllerImpl implements RateController {
             if (serverRate == null) {
                 throw new BadRequestException(SERVER_NOT_RESPONDED, BankRateDto.class);
             }
-            exchangeRates.add(serverRate);
+            rates.add(serverRate);
         }
-        return exchangeRates;
+        return rates;
     }
 }

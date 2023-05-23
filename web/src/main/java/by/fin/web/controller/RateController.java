@@ -1,6 +1,5 @@
 package by.fin.web.controller;
 
-import by.fin.processing.dto.BankRateDto;
 import by.fin.processing.dto.RateDto;
 import by.fin.processing.dto.RateWrapperDto;
 import jakarta.validation.Valid;
@@ -34,8 +33,7 @@ public interface RateController {
     List<RateDto> findByCurrency(@RequestParam String currencyType);
 
     @GetMapping("/average")
-    @ResponseStatus(OK)BigDecimal findAverageInMonth(@RequestParam String currencyType,
+    @ResponseStatus(OK)
+    BigDecimal findAverageInMonth(@RequestParam String currencyType,
                                   @RequestParam @Min(1) @Max(12) int monthNumber);
-
-    List<BankRateDto> retrieveDataFromBankServer(RateWrapperDto wrapper);
 }
