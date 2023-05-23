@@ -24,5 +24,5 @@ public class WeekendDto {
     @NotNull
     private LocalDate calendarDate;
 
-    private boolean isDayOff;
+    private boolean dayOff;
 }

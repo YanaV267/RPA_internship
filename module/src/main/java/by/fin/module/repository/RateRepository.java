@@ -18,6 +18,6 @@ public interface RateRepository extends JpaRepository<Rate, Long> {
     List<Rate> findByCurrencyType(String currencyType);
 
     @Query("select avg(r.value) from Rate r where extract(month from r.weekend.calendarDate) = :monthNumber " +
-            "and r.currencyType = :currency and r.weekend.isDayOff = false")
+            "and r.currencyType = :currency and r.weekend.dayOff = false")
     Optional<BigDecimal> findByCurrencyTypeAndMonthNumber(String currency, int monthNumber);
 }

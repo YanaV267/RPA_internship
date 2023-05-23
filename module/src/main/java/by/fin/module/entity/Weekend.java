@@ -34,5 +34,5 @@ public class Weekend {
     private LocalDate calendarDate;
 
     @Column(name = "is_day_off")
-    private boolean isDayOff;
+    private boolean dayOff;
 }
