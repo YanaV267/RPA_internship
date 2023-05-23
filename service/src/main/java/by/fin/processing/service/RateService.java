@@ -16,5 +16,5 @@ public interface RateService {
 
     List<RateDto> findByCurrency(String currencyType);
 
-    BigDecimal findAverageInMonth(String currencyType, int monthNumber);
+    BigDecimal findAverageInMonth(String currencyType, int monthNumber, int yearNumber);
 }

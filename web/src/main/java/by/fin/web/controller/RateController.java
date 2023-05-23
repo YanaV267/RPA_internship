@@ -35,5 +35,6 @@ public interface RateController {
     @GetMapping("/average")
     @ResponseStatus(OK)
     BigDecimal findAverageInMonth(@RequestParam String currencyType,
-                                  @RequestParam @Min(1) @Max(12) int monthNumber);
+                                  @RequestParam @Min(1) @Max(12) int monthNumber,
+                                  @RequestParam @Min(2022) @Max(2023) int yearNumber);
 }

@@ -47,9 +47,9 @@ public class RateControllerImpl implements RateController {
     }
 
     @Override
-    public BigDecimal findAverageInMonth(String currencyType, int monthNumber) {
+    public BigDecimal findAverageInMonth(String currencyType, int monthNumber, int yearNumber) {
         checkCurrencyType(currencyType);
-        return service.findAverageInMonth(currencyType, monthNumber);
+        return service.findAverageInMonth(currencyType, monthNumber, yearNumber);
     }
 
     private void checkCurrencyType(String currencyType) {

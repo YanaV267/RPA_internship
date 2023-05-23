@@ -89,8 +89,9 @@ public class RateServiceImpl implements RateService {
     }
 
     @Override
-    public BigDecimal findAverageInMonth(String currencyType, int monthNumber) {
-        Optional<BigDecimal> resultAverage = repository.findByCurrencyTypeAndMonthNumber(currencyType, monthNumber);
+    public BigDecimal findAverageInMonth(String currencyType, int monthNumber, int yearNumber) {
+        Optional<BigDecimal> resultAverage = repository.findByCurrencyTypeAndMonthYearNumber(currencyType,
+                monthNumber, yearNumber);
         if (resultAverage.isEmpty()) {
             throw new BadRequestException(RATES_NOT_FOUND_IN_MONTH, RateDto.class);
         }
